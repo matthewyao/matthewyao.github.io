@@ -15,7 +15,7 @@ My Name is Mosmovon. You may find me in sites like douban.com / Goodreads.com / 
 
 喜欢折腾的伪技术宅，生命不息，折腾不止。一点点 geek，一丢丢的执著。日常之中，多的是折腾劲，也希望能添几分专注、几许沉着。这就是我。
 
-——Mosmovon
+——莫失莫忘
 
 
 > The sweet hereafter.
