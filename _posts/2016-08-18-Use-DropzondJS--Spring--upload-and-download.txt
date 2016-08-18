@@ -2,14 +2,14 @@
 layout: post
 title: Easy File Upload Using DropzoneJS and Spring
 categories: [blog ]
-tags: [Spring,]
+tags: [Spring, ]
 description: DropzoneJS is an open source library that provides drag and drop file uploads with image previews.
 ---
 
 [TOC]
 
-# Easy File Upload Using DropzoneJS and Spring
->**[DropzoneJS](http://www.dropzonejs.com/)** is an open source library that provides drag and drop file uploads with image previews.
+# Easy File Upload Using DropzoneJS nd Spring
+>**[DropzoneJS](http://www.dropzonejs.com/)** is an open source library that provides dragâ€™nâ€™drop file uploads with image previews.
 
 Saving user files in a web application is pretty much a necessity in many cases be it *images, videos, or documents.* This post will go over how to easily implement both the back and frontend components to facilitate the storage of files to a database. Additionally, we will be using **DropzoneJS** to prettify and make the front end uploading process more smooth. First we will lay down the backend framework to facilitate the persisting of user files to the database. We will start by going over the backend implementation by creating a basic REST server, using **Java Spring**, with endpoints to both accept and send files. This will then be followed up with a frontend implementation using html form and DropzoneJS as the library to upload files.
 
@@ -40,11 +40,11 @@ public ResultResponse<Object> uploadFile(MultipartHttpServletRequest request,@Re
             success = fileService.saveFile(file,orderCode,fileType,assignedAe);
             resultResponse.setIsok(success);
         }
-        resultResponse.setMessage("ÎÄ¼şÉÏ´«³É¹¦£¡");
+        resultResponse.setMessage("æ–‡ä»¶ä¸Šä¼ æˆåŠŸï¼");
     }catch (IOException e) {
         resultResponse.setIsok(false);
-        resultResponse.setMessage("ÎÄ¼şÉÏ´«Ê§°Ü£¡");
-        logger.error("ÎÄ¼şÉÏ´«Ê§°Ü:"+e);
+        resultResponse.setMessage("æ–‡ä»¶ä¸Šä¼ å¤±è´¥ï¼");
+        logger.error("æ–‡ä»¶ä¸Šä¼ å¤±è´¥:"+e);
         e.printStackTrace();
     }
     return resultResponse;
@@ -74,14 +74,14 @@ We use **Java OutputStream** to save file to local storage.
 public boolean saveFile(MultipartFile file, String orderCode, int fileType, String assignedAe) throws IOException {
     inputStream = file.getInputStream();
     File path = new File(dirPrefix);
-    //ÅĞ¶ÏÉÏ´«ÎÄ¼şµÄ±£´æÄ¿Â¼ÊÇ·ñ´æÔÚ
+    //åˆ¤æ–­ä¸Šä¼ æ–‡ä»¶çš„ä¿å­˜ç›®å½•æ˜¯å¦å­˜åœ¨
     if (!path.exists()) {
         path.mkdirs();
     }
-    //ÉÏ´«ÎÄ¼şÂ·¾¶
+    //ä¸Šä¼ æ–‡ä»¶è·¯å¾„
     String originalFilename = file.getOriginalFilename();
     String filePath = dirPrefix + originalFilename;
-    logger.info("--------------------ÉÏ´«ÎÄ¼şÂ·¾¶: " + filePath);
+    logger.info("--------------------ä¸Šä¼ æ–‡ä»¶è·¯å¾„: " + filePath);
     if ((new File(filePath)).exists()) {
         inputStream.close();
         return false;
@@ -130,7 +130,7 @@ In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzone
     <form action="/file/file_upload.do" class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post">
 
         <div class="dz-message needsclick">
-            ÍÏ×§ÎÄ¼şµ½ÕâÀï»òµã»÷ÉÏ´«
+            æ‹–æ‹½æ–‡ä»¶åˆ°è¿™é‡Œæˆ–ç‚¹å‡»ä¸Šä¼ 
         </div>
 
     </form>
