@@ -6,9 +6,9 @@ tags: [Spring, ]
 description: DropzoneJS is an open source library that provides drag and drop file uploads with image previews.
 ---
 
-[TOC]
 
-# Easy File Upload Using DropzoneJS nd Spring
+
+## Easy File Upload Using DropzoneJS nd Spring
 >**[DropzoneJS](http://www.dropzonejs.com/)** is an open source library that provides drag’n’drop file uploads with image previews.
 
 Saving user files in a web application is pretty much a necessity in many cases be it *images, videos, or documents.* This post will go over how to easily implement both the back and frontend components to facilitate the storage of files to a database. Additionally, we will be using **DropzoneJS** to prettify and make the front end uploading process more smooth. First we will lay down the backend framework to facilitate the persisting of user files to the database. We will start by going over the backend implementation by creating a basic REST server, using **Java Spring**, with endpoints to both accept and send files. This will then be followed up with a frontend implementation using html form and DropzoneJS as the library to upload files.
@@ -19,7 +19,9 @@ You can follow along by downloading the complete source found on [GitHub](https:
 ![introduction of dropzone.js](http://oc26wuqdw.bkt.clouddn.com/DropzoneJS_Introduction.png)
 
 ##Backend Setup
+
 ### Upload Files
+
 We will start with setting up our REST server to accept file uploads. First we will create the base application:
 
 ```
@@ -70,6 +72,7 @@ In this way we can use a post http request like `/file/file_upload.do` to upload
 And we add a saveFile() function to save upload files,when we use **MultipartHttpServletRequest** we should use **MultipartFile** to get upload files and save them in a loop.
 ### Save files
 We use **Java OutputStream** to save file to local storage.
+
 ```
 public boolean saveFile(MultipartFile file, String orderCode, int fileType, String assignedAe) throws IOException {
     inputStream = file.getInputStream();
@@ -102,6 +105,7 @@ public boolean saveFile(MultipartFile file, String orderCode, int fileType, Stri
 
 ###Download files
 Download files use a Http RESTful GET url as `/file/file_download.do` to download file,and in order to escape Chinese garbled we use *ISO-8859-1* to recoding filename.
+
 ```
 @RequestMapping(value = "file_download.do",method = RequestMethod.GET)
 public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
@@ -122,6 +126,7 @@ public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
 
 ## Front Setup
 In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzonejs.com/).First you should add a div with `id="dropzone"`,and then add a form action to file upload url, and add `enctype="multipart/form-data"` to enable multipart file uploaded.
+
 ```
 <script type="text/javascript" src="${ctx}/static/js/dropzone.js"></script>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/dropzone.css">
