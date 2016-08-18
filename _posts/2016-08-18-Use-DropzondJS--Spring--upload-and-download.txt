@@ -1,3 +1,11 @@
+---
+layout: post
+title: Easy File Upload Using DropzoneJS and Spring
+categories: [blog ]
+tags: [Spring,]
+description: DropzoneJS is an open source library that provides drag and drop file uploads with image previews.
+---
+
 [TOC]
 
 # Easy File Upload Using DropzoneJS and Spring
