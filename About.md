@@ -2,11 +2,11 @@
 layout: page
 title: "About"
 description: "嘿，你总算找到我啦"
-header-img: "img/plane.jpg"
+header-img: "http://oc26wuqdw.bkt.clouddn.com/alone.jpg"
 ---
 
 <center>
-    <p><img src="http://dreamofbook.qiniudn.com/Zero.png" align="center"></p>
+    <p><img src="http://oc26wuqdw.bkt.clouddn.com/Zero.png" align="center"></p>
 </center>
 
 Ehhhh...I know it's not a good question.

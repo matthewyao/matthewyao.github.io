@@ -1,6 +1,6 @@
 # Site settings
 title: Mosmovon
-header-img: "img/autumn2.jpg"
+header-img: "http://oc26wuqdw.bkt.clouddn.com/autumn2.jpg"
 tagline: "吉光片羽"  
 description: "在遥远的地方 一切虔诚终必相遇"  
 baseurl: ""
@@ -54,7 +54,7 @@ defaults:
     values:
       layout: "post"
       author: "Mosmovon"
-      header-img: "img/fantasy.jpg" # We don't want posts without a header image, that whould mean white on white
+      header-img: "http://oc26wuqdw.bkt.clouddn.com/fantasy.jpg" # We don't want posts without a header image, that whould mean white on white
 
 
 # Comments 
