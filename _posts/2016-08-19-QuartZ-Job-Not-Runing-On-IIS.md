@@ -1,13 +1,13 @@
 ---
 layout: post
 title: Quartz Job在IIS下未自动运行
-categories: [blog ]
+categories: true
 tags: [.NET, C#, QuartZ, ]
 description: Quartz Job在IIS下未自动运行的解决方案
 ---
 
 
-##Quartz Job在IIS下未自动运行
+## Quartz Job在IIS下未自动运行
 
 >IIS 为优化服务器性能，会自动对它认为休眠的应用程序进行资源回收，资源回收将会导致网站应用程序关闭。
 

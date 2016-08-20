@@ -1,7 +1,7 @@
 ﻿---
 layout: post
 title: Fiddler抓取HTTPS流量的原理
-categories: [blog ]
+categories: true
 tags: [Window, Fiddler, Https, 前端, ]
 description: TLS是一种端到端的传输层加密协议，是HTTPS协议的一个组成部分。
 ---
