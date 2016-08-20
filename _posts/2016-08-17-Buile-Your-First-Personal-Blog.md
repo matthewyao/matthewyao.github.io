@@ -4,11 +4,7 @@ title:      "Build Your First Jekyll Blog"
 subtitle:   "Build your blog with github pages and Jekyll"
 date:       2016-08-17 12:00:00
 catalog:    true
-tags:
-    - 前端
-    - Blog
-    - 折腾
-    - Github
+tags:       [Window, 前端, Blog, Github]
 ---
 
 ## Build Your First Jekyll Blog
