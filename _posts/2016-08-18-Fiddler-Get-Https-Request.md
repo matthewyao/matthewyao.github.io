@@ -16,28 +16,36 @@ tags: 		[Window, Fiddler, Https, 前端, ]
 开启HTTPS流量解密功能后，Fiddler将会提示用户将DO_NOT_TRUST_FiddlerRoot证书列入IE浏览器的信任CA名单。用于调试客户端时，这已经足够了；Firefox用户也可以很方便的手动导入DO_NOT_TRUST_FiddlerRoot证书。但是，若要在服务器上抓取ASP.Net发出的HTTPS请求，这是不够的——你必须将DO_NOT_TRUST_FiddlerRoot证书导入“机器帐号”的信任CA名单。
 
 ## Fiddler抓取移动端设备HTTPS流量步骤
+
 - 打开*tools->FiddlerOptions->HTTPS*
 
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/1.png)
+
 - 勾选上Capture HTTPS CONNECTs和Decrypt HTTPS traffic
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/2.png)
+
 - 然后会提示安装证书，点击yes
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/3.png)
+
 - 点击是安装证书
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/4.png)
+
 - 打开certMgr.msc可以管理  PC上的所有证书，在受信任的根证书颁发机构->证书中会有一个DO_NOT_TRUST_FiddlerRoot证书，表明证书安装成功
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/5.png)
+
 - 然后在Connections中将Fiddler的监听端口设置为8888，同时勾选上Allow remote computers to connect允许远程连接
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/6.png)
+
 - 然后在HTTPS中点击Export Root Certificate to Desktop
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/7.png)
+
 - 然后桌面上会生成一个FiddlerRoot.cer的证书
 
 ![image](http://oc26wuqdw.bkt.clouddn.com/8.png)
