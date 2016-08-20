@@ -19,9 +19,11 @@ tags:       [后端, .NET, Identity, C#, ]
 ![advantage](http://oc26wuqdw.bkt.clouddn.com/blog/identityadvantage.jpg)
 微软在*.NET Framework 4.5* 中推出了**ASP.NET Identity**，它为ASP.NET 应用程序提供了一系列的API用来管理和维护用户，有以下优点：
 易于集成：ASP.NET Identity 可以用在所有的 ASP.NET 框架上，例如 **ASP.NET MVC, Web Forms，Web Pages，ASP.NET Web API**
+
 **1. 持久化**
 默认情况下，ASP.NET Identity将用户所有的数据存储在数据库中。ASP.NET Identity 使用 Entity Framework 实现其所有的检索和持久化机制。
 通过Code First,你可以对数据库架构的完全控制，一些常见的任务例如改变表名称、改变主键数据类型等都可以很轻易地完成。
+
 **2. 基于声明的**
 ASP.NET Identity 支持基于声明的身份验证，它使用一组"声明"来表示用户的身份标识。相对于"角色"，"声明"能使开发人员能够更好地描述用户的身份标识。"角色"本质上只是一个布尔类型（即"属于"或"不属于"特定角色），而一个"声明"可以包含更多关于用户标识和成员资格的信息。
  

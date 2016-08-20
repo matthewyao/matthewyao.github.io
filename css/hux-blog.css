@@ -630,6 +630,12 @@ pre code {
   font-style: italic;
   margin-top: 0;
 }
+.post-preview > .post-meta > .post-time {
+    color: #303030;
+    font-weight: 600;
+    font-family: arial,'Lora', 'Times New Roman', serif;
+    font-style: normal;
+}
 .post-preview > .post-meta > a {
   text-decoration: none;
   color: #404040;
