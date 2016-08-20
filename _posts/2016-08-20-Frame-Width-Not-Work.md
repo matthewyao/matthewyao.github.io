@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 非IE浏览器里对style.width赋值无效的问题
-categories: true
+catalog: true
 tags: [Window, 前端, JS, ]
 description: 关于iframe高度的设置是由于设置页面使用XHTML DTD校验导致设置不带单位的width无效
 ---
