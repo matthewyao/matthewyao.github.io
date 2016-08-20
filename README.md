@@ -1,6 +1,6 @@
 # Mosmovon 莫失莫忘
 
-This is a blog created by Azeril. The blog is live at [matthewyao.com](http://matthewyao.com/).
+This is a blog created by Mosmovon. The blog is live at [matthewyao.com](http://matthewyao.com/).
 
 ## Thanks
 
@@ -18,7 +18,7 @@ The blog used many tool/service,many thanks to:
 
 ## How To Creat A Jekyll Blog
 
-[Build-Your-First-GitHub-Pages-Blog](http://azeril.me/blog/Build-Your-First-GitHub-Pages-Blog.html)
+[Buile-Your-First-Personal-Blog](http://matthewyao.com/2016/08/17/Buile-Your-First-Personal-Blog/)
 
 Build your blog Step by step
 ## Just write
