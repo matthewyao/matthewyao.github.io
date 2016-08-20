@@ -1,5 +1,5 @@
 # Site settings
-title: Mosmovon
+title: 莫失莫忘
 SEOTitle: 姚宽的博客 | 莫失莫忘 | Mosmovon
 header-img: img/home-bg.jpg
 email: mosmovon@gmail.com
@@ -69,7 +69,7 @@ ga_domain: matthewyao.com
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "生命不息，折腾不止;不忘初心，方得始终."
+sidebar-about-description: "生命不息，折腾不止<br/>不忘初心，方得始终."
 sidebar-avatar: /img/me.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
