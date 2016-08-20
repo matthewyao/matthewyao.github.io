@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout: post
 title: 非IE浏览器里对style.width赋值无效的问题
 categories: true
 tags: [Window, 前端, JS, ]
