@@ -18,6 +18,7 @@ tags:       [后端, Java, 中文乱码, 心得, ]
 3. 按指定的字符编码形式，将字符数据编码并写入目的输出流中。
 
 所以JAVA处理字符时总是经过了两次编码转换：
+
 1.	从指定编码转换为**UNICODE**编码
 2. 从**UNICODE**编码转换为指定编码
 
@@ -37,6 +38,7 @@ tags:       [后端, Java, 中文乱码, 心得, ]
   如果我们是在eclipse里编译运行，可能看到的结果是类似这样的乱码：��Һ�。那么，这是为什么呢？
   
   我们先来看看整个字符的转换过程：
+
   1. 在eclipse窗口中输入中文字符，并保存成**UTF-8**的JAVA文件。这里发生了多次字符编码转换。不过因为我们相信eclipse的正确性，所以我们不用分析其中的过程，只需要相信保存下的JAVA文件确实是**UTF-8**格式。
   2. 在eclipse中编译运行此JAVA文件。这里有必要详细分析一下编译和运行时的字符编码转换。
    - **编译**：我们用javac编译JAVA文件时，javac不会智能到猜出你所要编译的文件是什么编码类型的，所以它需要指定读取文件所用的编码类型。默认javac使用平台缺省的字符编码类型来解析JAVA文件。平台缺省编码是操作系统决定的，我们使用的是中文操作系统，语言区域设置通常都是中国大陆，所以平台缺省编码类型通常是GBK。这个编码类型我们可以在JAVA中使用`System.getProperty("file.encoding")`来查看。所以javac会默认使用GBK来解析JAVA文件。如果我们要改变javac所用的编码类型，就要加上-encoding参数，如`javac -encoding utf-8 Test.java`。
@@ -46,6 +48,7 @@ tags:       [后端, Java, 中文乱码, 心得, ]
   `System.out.println`使用了`PrintStream`类来输出字符数据至控制台。`PrintStream`会使用平台缺省的编码方式来输出字符。我们的中文系统上缺省方式为**GBK**，所以内存中的**UNICODE**字符被转码成了**GBK**格式，并送到了操作系统的输出服务中。因为我们操作系统是中文系统，所以往终端显示设备上打印字符时使用的也是**GBK**编码。如果到这一步，我们的字符其实不再是**GBK**编码的话，终端就会显示出乱码。
   
   那么，在eclipse运行带中文字符的JAVA文件，控制台显示了乱码，是在哪一步转换错误呢？我们一步步来分析。
+
   - 保存JAVA文件成**UTF-8**后，如果再次打开你没有看到乱码，说明这步是正确的。
   - 用eclipse本身来编译运行JAVA文件，应该没有问题。
   - `System.out.println`会把内存中正确的**UNICODE**字符编码成**GBK**，然后发到eclipse的控制台去。等等，我们看到在Run Configuration对话框的Common标签里，控制台的字符编码被设置成了**UTF-8**！问题就在这里。`System.out.println`已经把字符编码成了**GBK**，而控制台仍然以**UTF-8**的格式读取字符，自然会出现乱码。
@@ -59,12 +62,14 @@ tags:       [后端, Java, 中文乱码, 心得, ]
 > 我们用eclipse编写一个JSP页面，使用tomcat浏览这个页面时，整个页面的中文字符都是乱码。这是什么原因呢？
 
 JSP页面从编写到在浏览器上浏览，总共有四次字符编解码:
+
 1. 以某种字符编码保存JSP文件
 2. Tomcat以指定编码来读取JSP文件并编译
 3. Tomcat向浏览器以指定编码来发送HTML内容
 4. 浏览器以指定编码解析HTML内容
 
 这里的四次字符编解码，有一次发生错误最终显示的就会是乱码。我们依次来分析各次的字符编码是如何设置的:
+
 1. 保存JSP文件，这是在编辑器中设置的，比如eclipse中，设置文件字符类型为utf-8。
 2. JSP文件开头的`<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>`，其中pageEncoding用来告诉tomcat此文件所用的字符编码。这个编码应该与eclipse保存文件用的编码一致。Tomcat以此编码方式来读取JSP文件并编译。
 3. page标签中的contentType用来设置tomcat往浏览器发送HTML内容所使用的编码。这个编码会在HTTP响应头中指定以通知浏览器。
@@ -100,6 +105,7 @@ Content-Type: text/html;charset=UTF-8
 ```
 
   test.txt里保存的是中文字符，但在浏览器上看到的乱码。这是个经常见到的问题。我们继续用之前的方法一步步来分析输入和输出流
+
   1. test.txt是以某种编码方式保存中文字符，比如UTF-8。
   2. `BufferedReader`直接读取test.txt的字节内容并以默认方式构造字符串。分析`BufferedReader`的代码，我们可以看到`BufferedReader`调用了`FileReader`的read方法，而`FileReader`又调用了`FileInputStream`的native的read方法。所谓native的方法，就是操作系统底层方法。那么我们操作系统是中文系统，所以`FileInputStream`默认用GBK方式读取文件。因为我们保存test.txt用的是UTF-8，所以在这里读取文件内容使用GBK是错误的编码。
   3. `<%=content%>`其实就是`out.print(content)`，这里又用到了**HTTP**的输出流`JspWriter`，于是字符串content又被以JSP的page标签中指定的UTF-8方式编码成字节数组被发送到浏览器端。
@@ -134,6 +140,7 @@ Content-Type: text/html;charset=UTF-8
   而就这么简单的两句代码，我们很有可能在页面上看到这样的乱码：´ó¼ÒºÃ 
   网上对处理request.getParamter中的乱码有很多文章和方法，也都是正确的，只是方法太多让人一直不明白到底是为什么。这里给大家分析一下到底是怎么一回事。
   首先，我们来看看与request对象有哪些相关的编码设置：
+
   1. JSP文件的字符编码
   2. 请求这个带参数URL的源页面的字符编码
   3. IE的高级设置中的选项“总以utf-8方式发送URL地址”
@@ -148,6 +155,7 @@ Content-Type: text/html;charset=UTF-8
   以上表格里的现象，除了指名在IE7上，其他全是在IE6上测试的结果。
   由这个表我们可以看到，IE的“**总以utf-8方式发送URL地址**”设置并不影响对parameter的解析，而从页面请求URL和从地址栏输入URL居然也有不同的表现。
   根据这个表列出的现象，大家只要用smartSniff抓几个网络包，并稍稍调查一下**TOMCAT**的源代码，就可以得出以下结论：
+  
   1. IE设置中的“**总以utf-8方式发送URL地址**”`只对URL的PATH部分起作用，对查询字符串是不起作用的`。也就是说，如果勾选了这个选项，那么类似`http://localhost:8080/test/大家好.jsp?param=大家好`这种URL，前一个“大家好”将被转化成utf-8形式，而后一个并没有变化。这里所说的utf-8形式，其实应该叫utf-8+escape形式，即%B4%F3%BC%D2%BA%C3这种形式。那么，查询字符串中的中文字符，到底是用什么编码传送到服务器的呢？答案是系统默认编码，即**GBK**。也就是说，在我们中文操作系统上，传送给WEB服务器的查询字符串，总是以GBK来编码的。
   2. 在页面中通过链接或location重定向或open新窗口的方式来请求一个URL，这个URL里面的中文字符是用什么编码的？答：是用**该页面的编码类型**。也就是说，如果我们从某个源JSP页面上的链接来访问`http://localhost:8080/test/test.jsp?param=大家好`这个URL，如果源JSP页面的编码是**UTF-8**，则大家好这几个字的编码就是**UTF-8**。而在地址栏上直接输入URL地址，或者从系统剪贴板粘贴到地址栏上，这个输入并非从页面中发起的，而是由操作系统发起的，所以这个编码只可能是系统的默认编码，与任何页面无关。我们还发现，在不同的浏览器上，用链接方式打开的页面，如果在地址栏上再敲个回车，显示的结果也会不同。IE上敲回车后显示不变化，而傲游上可能就会有乱码或乱码消失的变化。说明IE上敲回车，实际发送的是之前记忆下来的内存中的URL，而傲游上发送的从当前地址栏重新获取的URL。
   3. TOMCAT的URIEncoding如果不加以设置，则默认使用**ISO-8859-1**来解码URL，设置后便用设置了的编码方式来解码。这个解码同时包括PATH部分和查询字符串部分。可见，这个参数是对用GET方式传递的中文参数最关键的设置。不过，这个参数只对GET方式传递的参数有效，对POST的无效。分析TOMCAT的源代码我们可以看到，在请求一个页面时，TOMCAT会尝试构造一个Request对象，在这个对象里，会从Server.xml里读取URIEncoding的值，并赋值给`Parameters`类的`queryStringEncoding`变量，而这个变量将在解析`request.getParameter`中的GET参数时用来指导字符解码。
