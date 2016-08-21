@@ -155,7 +155,7 @@ Content-Type: text/html;charset=UTF-8
   以上表格里的现象，除了指名在IE7上，其他全是在IE6上测试的结果。
   由这个表我们可以看到，IE的“**总以utf-8方式发送URL地址**”设置并不影响对parameter的解析，而从页面请求URL和从地址栏输入URL居然也有不同的表现。
   根据这个表列出的现象，大家只要用smartSniff抓几个网络包，并稍稍调查一下**TOMCAT**的源代码，就可以得出以下结论：
-  
+
   1. IE设置中的“**总以utf-8方式发送URL地址**”`只对URL的PATH部分起作用，对查询字符串是不起作用的`。也就是说，如果勾选了这个选项，那么类似`http://localhost:8080/test/大家好.jsp?param=大家好`这种URL，前一个“大家好”将被转化成utf-8形式，而后一个并没有变化。这里所说的utf-8形式，其实应该叫utf-8+escape形式，即%B4%F3%BC%D2%BA%C3这种形式。那么，查询字符串中的中文字符，到底是用什么编码传送到服务器的呢？答案是系统默认编码，即**GBK**。也就是说，在我们中文操作系统上，传送给WEB服务器的查询字符串，总是以GBK来编码的。
   2. 在页面中通过链接或location重定向或open新窗口的方式来请求一个URL，这个URL里面的中文字符是用什么编码的？答：是用**该页面的编码类型**。也就是说，如果我们从某个源JSP页面上的链接来访问`http://localhost:8080/test/test.jsp?param=大家好`这个URL，如果源JSP页面的编码是**UTF-8**，则大家好这几个字的编码就是**UTF-8**。而在地址栏上直接输入URL地址，或者从系统剪贴板粘贴到地址栏上，这个输入并非从页面中发起的，而是由操作系统发起的，所以这个编码只可能是系统的默认编码，与任何页面无关。我们还发现，在不同的浏览器上，用链接方式打开的页面，如果在地址栏上再敲个回车，显示的结果也会不同。IE上敲回车后显示不变化，而傲游上可能就会有乱码或乱码消失的变化。说明IE上敲回车，实际发送的是之前记忆下来的内存中的URL，而傲游上发送的从当前地址栏重新获取的URL。
   3. TOMCAT的URIEncoding如果不加以设置，则默认使用**ISO-8859-1**来解码URL，设置后便用设置了的编码方式来解码。这个解码同时包括PATH部分和查询字符串部分。可见，这个参数是对用GET方式传递的中文参数最关键的设置。不过，这个参数只对GET方式传递的参数有效，对POST的无效。分析TOMCAT的源代码我们可以看到，在请求一个页面时，TOMCAT会尝试构造一个Request对象，在这个对象里，会从Server.xml里读取URIEncoding的值，并赋值给`Parameters`类的`queryStringEncoding`变量，而这个变量将在解析`request.getParameter`中的GET参数时用来指导字符解码。
@@ -164,6 +164,7 @@ Content-Type: text/html;charset=UTF-8
   在调查TOMCAT的代码时发现了另一个在server.xml里的参数**useBodyEncodingForURI**，可以解决这个问题。这个参数设成true后，TOMCAT就会用request.**setCharacterEncoding**所设置的字符编码来同样解析GET参数了。这样，那个**SetCharacterEncodingFilter**就可以同时处理GET和POST参数了。
   
 知道了以上知识后，我们再来分析一下前面表格中列出的几个典型现象。
+
   **第一条** 请求源页面的编码为UTF-8，而TOMCAT的URIEncoding未指定，则TOMCAT用ISO8859-1方式来解码参数，所以从request中读出来后，内存中存储的为错误的UNICODE数据，导致之后到屏幕显示的所有转换全部出错。
   **第九条** 请求源页面编码为GBK，而TOMCAT的URIEncoding也为GBK，TOMCAT用GBK方式去解码原本用GBK编码的字符，解码正确，内存中的UNICODE值正确，最终显示正确的中文。
   **第十三条** 请求源页面编码为UTF-8，TOMCAT的URIEncoding也为UTF-8，而在IE6中最终显示的中文字符，如果是奇数个数，则最后一个会显示为乱码。这是因为IE6将URL地址发送时，对查询字符串是直接对UTF-8格式的字符使用GBK来编码，而不是对UNICODE的字符来用GBK编码，所以UTF-8的数据没有经过UNICODE而直接编码成了GBK。而到了TOMCAT这边，GBK的编码又被当成UTF-8做了解码。所以这个过程中经过了UTF-8转换成GBK，然后又从GBK转换成UTF-8的过程，而这种转换，恰好就会出现奇数个中文字符串的最后一位为乱码的现象。而在IE7中，估计把这种现象当做BUG已经被解决了，即在发送地址时会先转成UNICODE再编码成GBK。那么估计在IE7的浏览器+中文操作系统环境下，如果我们把TOMCAT的URIEncoding设置成GBK，无论JSP编码成什么格式，都不会出现乱码。
