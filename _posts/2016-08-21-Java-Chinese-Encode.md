@@ -166,7 +166,9 @@ Content-Type: text/html;charset=UTF-8
 知道了以上知识后，我们再来分析一下前面表格中列出的几个典型现象。
 
   **第一条** 请求源页面的编码为UTF-8，而TOMCAT的URIEncoding未指定，则TOMCAT用ISO8859-1方式来解码参数，所以从request中读出来后，内存中存储的为错误的UNICODE数据，导致之后到屏幕显示的所有转换全部出错。
+
   **第九条** 请求源页面编码为GBK，而TOMCAT的URIEncoding也为GBK，TOMCAT用GBK方式去解码原本用GBK编码的字符，解码正确，内存中的UNICODE值正确，最终显示正确的中文。
+  
   **第十三条** 请求源页面编码为UTF-8，TOMCAT的URIEncoding也为UTF-8，而在IE6中最终显示的中文字符，如果是奇数个数，则最后一个会显示为乱码。这是因为IE6将URL地址发送时，对查询字符串是直接对UTF-8格式的字符使用GBK来编码，而不是对UNICODE的字符来用GBK编码，所以UTF-8的数据没有经过UNICODE而直接编码成了GBK。而到了TOMCAT这边，GBK的编码又被当成UTF-8做了解码。所以这个过程中经过了UTF-8转换成GBK，然后又从GBK转换成UTF-8的过程，而这种转换，恰好就会出现奇数个中文字符串的最后一位为乱码的现象。而在IE7中，估计把这种现象当做BUG已经被解决了，即在发送地址时会先转成UNICODE再编码成GBK。那么估计在IE7的浏览器+中文操作系统环境下，如果我们把TOMCAT的URIEncoding设置成GBK，无论JSP编码成什么格式，都不会出现乱码。
 
 ## 对URL做Encode和Decode
