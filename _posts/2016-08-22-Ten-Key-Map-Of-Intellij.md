@@ -10,7 +10,7 @@ tags:       [转载, Intellij, ]
 # (转)十大Intellij IDEA快捷键
 
 > **Intellij IDEA**中有很多快捷键让人爱不释手，**stackoverflow**上也有一些有趣的讨论。每个人都有自己的最爱，想排出个理想的榜单还真是困难。以前也整理过**Intellij**的快捷键，这次就按照我日常开发时的使用频率，简单分类列一下我最喜欢的十大快捷-神-键吧。
->
+
 ##  智能提示
 
 Intellij首当其冲的当然就是Intelligence智能！**基本的代码提示用Ctrl+Space**，还有更智能地按类型信息提示**Ctrl+Shift+Space**，但因为Intellij总是随着我们敲击而自动提示，所以很多时候都不会手动敲这两个快捷键(除非提示框消失了)。用**F2/ Shift+F2移动到有错误的代码**，**Alt+Enter快速修复**(即Eclipse中的Quick Fix功能)。当智能提示为我们自动补全方法名时，我们通常要自己补上行尾的反括号和分号，当括号嵌套很多层时会很麻烦，这时我们只需敲**Ctrl+Shift+Enter就能自动补全末尾的字符**。而且不只是括号，例如敲完if/for时也可以自动补上{}花括号。
@@ -64,6 +64,6 @@ Intellij更加智能的又一佐证是在任意菜单或显示窗口，都可以
 Ø  Top #2  自我修复：**Alt+Enter**
 Ø  Top #1  重构一切：**Ctrl+Shift+Alt+T**
 
- 转自：http://blog.csdn.net/dc_726/article/details/42784275
+[原文地址](http://blog.csdn.net/dc_726/article/details/42784275)
 
 
