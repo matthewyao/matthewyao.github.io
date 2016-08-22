@@ -53,15 +53,25 @@ Intellij更加智能的又一佐证是在任意菜单或显示窗口，都可以
 ##  最终榜单
 
 这榜单阵容太豪华了，后几名都是如此有用，毫不示弱。
+
 Ø  Top#10切来切去：**Ctrl+Tab**
+
 Ø  Top #9  选你所想：**Ctrl+W**
+
 Ø  Top #8  代码生成：**Template/Postfix +Tab**
+
 Ø  Top #7  发号施令：**Ctrl+Shift+A**
+
 Ø  Top #6  无处藏身：**Shift+Shift**
+
 Ø  Top #5  自动完成：**Ctrl+Shift+Enter**
+
 Ø  Top #4  创造万物：**Alt+Insert**
+
 Ø  Top #3  智能补全：**Ctrl+Shift+Space**
+
 Ø  Top #2  自我修复：**Alt+Enter**
+
 Ø  Top #1  重构一切：**Ctrl+Shift+Alt+T**
 
 [原文地址](http://blog.csdn.net/dc_726/article/details/42784275)
