@@ -7,7 +7,7 @@ catalog:    true
 tags:       [转载, Intellij, ]
 ---
 
-# (转)十大Intellij IDEA快捷键
+# （转）十大Intellij IDEA快捷键
 
 > **Intellij IDEA**中有很多快捷键让人爱不释手，**stackoverflow**上也有一些有趣的讨论。每个人都有自己的最爱，想排出个理想的榜单还真是困难。以前也整理过**Intellij**的快捷键，这次就按照我日常开发时的使用频率，简单分类列一下我最喜欢的十大快捷-神-键吧。
 

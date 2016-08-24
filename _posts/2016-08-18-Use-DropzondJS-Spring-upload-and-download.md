@@ -20,6 +20,7 @@ You can follow along by downloading the complete source found on [GitHub](https:
 
 ![introduction of dropzone.js](http://oc26wuqdw.bkt.clouddn.com/DropzoneJS_Introduction.png)
 
+
 ##Backend Setup
 
 ### Upload Files
@@ -108,6 +109,7 @@ public boolean saveFile(MultipartFile file, String orderCode, int fileType, Stri
 
 
 ###Download files
+
 Download files use a Http RESTful GET url as `/file/file_download.do` to download file,and in order to escape Chinese garbled we use *ISO-8859-1* to recoding filename.
 
 ```
