@@ -137,8 +137,6 @@ public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
 In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzonejs.com/).First you should add a div with `id="dropzone"`,and then add a form action to file upload url, and add `enctype="multipart/form-data"` to enable multipart file uploaded.
 
 ```
-<script type="text/javascript" src="${ctx}/static/js/dropzone.js"></script>
-<link rel="stylesheet" type="text/css" href="${ctx}/static/css/dropzone.css">
 ...
 <div id="dropzone">
     <form action="/file/file_upload.do" class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post">
