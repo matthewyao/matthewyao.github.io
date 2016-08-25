@@ -56,6 +56,7 @@ public ResultResponse<Object> uploadFile(MultipartHttpServletRequest request,@Re
 ...
 }
 </pre>
+
 Here wu use **MultipartHttpServletRequest** to receive the upload files.In order to use **MultipartHttpServletRequest**,we should first config **org.springframework.web.multipart.commons.CommonsMultipartResolver** in spring like below
 
 ```
