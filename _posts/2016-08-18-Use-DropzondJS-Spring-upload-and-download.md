@@ -59,17 +59,6 @@ public ResultResponse<Object> uploadFile(MultipartHttpServletRequest request,@Re
 
 Here wu use **MultipartHttpServletRequest** to receive the upload files.In order to use **MultipartHttpServletRequest**,we should first config **org.springframework.web.multipart.commons.CommonsMultipartResolver** in spring like below
 
-<pre class="prettyprint">
-<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    <!-- set the max upload size100MB -->
-    <property name="maxUploadSize">
-        <value>104857600</value>
-    </property>
-    <property name="maxInMemorySize">
-        <value>4096</value>
-    </property>
-</bean>
-</pre>
 
 In this way we can use a post http request like `/file/file_upload.do` to upload files to server.
 And we add a saveFile() function to save upload files,when we use **MultipartHttpServletRequest** we should use **MultipartFile** to get upload files and save them in a loop.
@@ -105,6 +94,7 @@ public boolean saveFile(MultipartFile file, String orderCode, int fileType, Stri
     fileDao.saveFileBaseInfo(fileInfo);
     return true;
 }
+</pre>
 
 ### Download files
 
@@ -126,20 +116,11 @@ public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
     }
     return response;
 }
+</pre>
 
 ## Front Setup
 
 In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzonejs.com/).First you should add a div with `id="dropzone"`,and then add a form action to file upload url, and add `enctype="multipart/form-data"` to enable multipart file uploaded.
 
-<pre class="prettyprint">
-<div id="dropzone">
-    <form action="/file/file_upload.do" class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post">
-
-        <div class="dz-message needsclick">
-            拖拽文件到这里或点击上传
-        </div>
-
-    </form>
-</div>
 
 At this point,you can drap or click form and choose file(s) then dropzone will auto upload files use **POST HTTP** request to `/file/file_upload.do`and save files to local storage.
