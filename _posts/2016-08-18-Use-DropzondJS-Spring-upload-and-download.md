@@ -28,7 +28,6 @@ We will start with setting up our REST server to accept file uploads. First we w
 
 
 <pre class="prettyprint">
-
 @Controller
 @RequestMapping("/file")
 public class FileController {
@@ -62,7 +61,7 @@ public ResultResponse<Object> uploadFile(MultipartHttpServletRequest request,@Re
 
 Here wu use **MultipartHttpServletRequest** to receive the upload files.In order to use **MultipartHttpServletRequest**,we should first config **org.springframework.web.multipart.commons.CommonsMultipartResolver** in spring like below
 
-```
+<pre class="prettyprint">
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <!-- set the max upload size100MB -->
     <property name="maxUploadSize">
@@ -72,7 +71,7 @@ Here wu use **MultipartHttpServletRequest** to receive the upload files.In order
         <value>4096</value>
     </property>
 </bean>
-```
+</pre>
 
 In this way we can use a post http request like `/file/file_upload.do` to upload files to server.
 And we add a saveFile() function to save upload files,when we use **MultipartHttpServletRequest** we should use **MultipartFile** to get upload files and save them in a loop.
@@ -81,7 +80,7 @@ And we add a saveFile() function to save upload files,when we use **MultipartHtt
 
 We use **Java OutputStream** to save file to local storage.
 
-```
+<pre class="prettyprint">
 public boolean saveFile(MultipartFile file, String orderCode, int fileType, String assignedAe) throws IOException {
     inputStream = file.getInputStream();
     File path = new File(dirPrefix);
@@ -108,13 +107,13 @@ public boolean saveFile(MultipartFile file, String orderCode, int fileType, Stri
     fileDao.saveFileBaseInfo(fileInfo);
     return true;
 }
-```
+</pre>
 
 ### Download files
 
 Download files use a Http RESTful GET url as `/file/file_download.do` to download file,and in order to escape Chinese garbled we use *ISO-8859-1* to recoding filename.
 
-```
+<pre class="prettyprint">
 @RequestMapping(value = "file_download.do",method = RequestMethod.GET)
 public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
     File file = new File(filePath);
@@ -130,13 +129,13 @@ public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
     }
     return response;
 }
-```
+</pre>
 
 ## Front Setup
 
 In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzonejs.com/).First you should add a div with `id="dropzone"`,and then add a form action to file upload url, and add `enctype="multipart/form-data"` to enable multipart file uploaded.
 
-```
+<pre class="prettyprint">
 ...
 <div id="dropzone">
     <form action="/file/file_upload.do" class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post">
@@ -147,6 +146,6 @@ In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzone
 
     </form>
 </div>
-```
+</pre>
 
 At this point,you can drap or click form and choose file(s) then dropzone will auto upload files use **POST HTTP** request to `/file/file_upload.do`and save files to local storage.
