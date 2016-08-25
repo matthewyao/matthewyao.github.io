@@ -105,7 +105,6 @@ public boolean saveFile(MultipartFile file, String orderCode, int fileType, Stri
     fileDao.saveFileBaseInfo(fileInfo);
     return true;
 }
-</pre>
 
 ### Download files
 
@@ -127,7 +126,6 @@ public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
     }
     return response;
 }
-</pre>
 
 ## Front Setup
 
