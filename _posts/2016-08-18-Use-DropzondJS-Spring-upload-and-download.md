@@ -27,7 +27,7 @@ You can follow along by downloading the complete source found on [GitHub](https:
 We will start with setting up our REST server to accept file uploads. First we will create the base application:
 
 
-<code class="prettyprint">
+<pre class="prettyprint">
 
 @Controller
 @RequestMapping("/file")
@@ -58,7 +58,7 @@ public ResultResponse<Object> uploadFile(MultipartHttpServletRequest request,@Re
 ...
 }
 
-</code>
+</pre>
 
 Here wu use **MultipartHttpServletRequest** to receive the upload files.In order to use **MultipartHttpServletRequest**,we should first config **org.springframework.web.multipart.commons.CommonsMultipartResolver** in spring like below
 
