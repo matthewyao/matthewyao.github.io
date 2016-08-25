@@ -31,7 +31,6 @@ We will start with setting up our REST server to accept file uploads. First we w
 @Controller
 @RequestMapping("/file")
 public class FileController {
-...
 @RequestMapping(value = "file_upload.do", method = RequestMethod.POST)
 @ResponseBody
 public ResultResponse<Object> uploadFile(MultipartHttpServletRequest request,@RequestParam String orderCode,@RequestParam int fileType,@RequestParam String assignedAe) {
@@ -54,7 +53,6 @@ public ResultResponse<Object> uploadFile(MultipartHttpServletRequest request,@Re
     }
     return resultResponse;
 }
-...
 }
 
 </pre>
@@ -136,7 +134,6 @@ public ResponseEntity<byte[]> downloadFile(@RequestParam String filePath){
 In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzonejs.com/).First you should add a div with `id="dropzone"`,and then add a form action to file upload url, and add `enctype="multipart/form-data"` to enable multipart file uploaded.
 
 <pre class="prettyprint">
-...
 <div id="dropzone">
     <form action="/file/file_upload.do" class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post">
 
