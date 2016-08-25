@@ -143,6 +143,5 @@ In front we use dropzone.js,you can see more at [DropzoneJS](http://www.dropzone
 
     </form>
 </div>
-</pre>
 
 At this point,you can drap or click form and choose file(s) then dropzone will auto upload files use **POST HTTP** request to `/file/file_upload.do`and save files to local storage.
