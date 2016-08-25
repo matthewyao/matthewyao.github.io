@@ -26,6 +26,7 @@ You can follow along by downloading the complete source found on [GitHub](https:
 
 We will start with setting up our REST server to accept file uploads. First we will create the base application:
 
+<?prettify?>
 <pre class="prettyprint">
 
 @Controller
