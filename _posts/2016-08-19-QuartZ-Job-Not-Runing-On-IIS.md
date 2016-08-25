@@ -28,7 +28,7 @@ description: Quartz Job在IIS下未自动运行的解决方案
 
 第二种方式是尝试在IIS关闭进程时捕捉关闭事件并访问应用使应用重启，虽然看起来没有第一种方式好，但却解决了实际问题。由于IIS在关闭Web应用后会触发`Application_End`事件，所以我们可以在`Application_End`事件中增加访问应用的Http request使应用重启
 
-<pre class="prettyprint linenums lang-csh">
+<pre class="prettyprint linenums prettyprinted lang-cs">
 protected void Application_End(object sender, EventArgs e)
 {
     log.Info("Server was shuting down......");
