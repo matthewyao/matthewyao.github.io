@@ -23,8 +23,8 @@ tags:       [Spring, Java, AOP, 代理模式, ]
 
 ```
  java.lang.reflect.Proxy
+ java.lange.reflect.Method
  java.lang.reflect.InvocationHandler
- Method
 ```
 
 Proxy类在运行时动态创建代理对象，这也是dynamic proxy的由来，下面是类图，其中最重要的是newProxyInstance,这个方法中，指明了将要代理的类的加载器，业务类接口，以及代理类要执行动作的调用处理器（InvokeHandler)，其定义如下：
@@ -209,3 +209,24 @@ public class TestCglib {
 	}
 }
 ```
+
+
+## Spring两种动态代理的使用
+Spring AOP根据切面类的类型来决定使用CGLIB代理或者JDK代理
+
+1. 如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP
+2. 如果目标对象实现了接口，可以强制使用CGLIB实现AOP
+3. 如果目标对象没有实现了接口，必须采用CGLIB库，spring会自动在JDK动态代理和CGLIB之间转换
+
+而由于使用JDK代理方式生成的代理类类型和名称都与原来的不一致，导致在IOC容器中注入该Bean会失败，并提升找不到对应类型的Bean
+
+另外可以在Spring的配置文件中指定代理方式
+
+```
+<aop:aspectj-autoproxy proxy-target-class="true" />
+```
+
+proxy-target-class属性值决定是基于接口的还是基于类的代理被创建。如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略，那么标准的JDK 基于接口的代理将起作用。
+
+即使你未声明 proxy-target-class="true" ，但运行类没有继承接口，spring也会自动使用CGLIB代理。
+高版本spring自动根据运行类选择 JDK 或 CGLIB 代理
