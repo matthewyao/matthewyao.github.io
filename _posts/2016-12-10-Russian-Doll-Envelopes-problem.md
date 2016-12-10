@@ -159,6 +159,7 @@ What is the maximum number of envelopes can you Russian doll? (put one inside ot
 
 **Example:**
 Given envelopes = `[[5,4],[6,4],[6,7],[2,3]]`, the maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+
 > 那么现在回到Russian Doll Envelopes问题上来，此时的输入从一维到了二维，同时不要求按输入顺序，那么第一反应就是想到要先排序
 
 1.按w升序，h升序排列
