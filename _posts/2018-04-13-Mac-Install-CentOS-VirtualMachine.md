@@ -7,39 +7,8 @@ catalog:    true
 tags:       [MAC, 虚拟机, CentOS, VirtualBox, Hadoop, 大数据 ]
 ---
 
-目录
-1 CentOS安装
-1.1 首先下载所有需要的安装包
-1.2 CentOS安装
-2 CentOS配置
-2.1 网络配置
-2.1.1 配置成静态IP模式
-2.1.2 DNS配置
-2.1.3 修改网络连接方式
-2.1.4 安装工具包
-2.1.5 host设置
-2.1.5.1 虚拟机设置host
-2.1.5.2 设置虚拟机主机名和IP映射
-2.1.5.3 本机设置host
-2.2 共享文件设置
-2.2.1 挂载
-2.2.2 设置共享
-2.3 JDK安装
-2.3.1 JDK下载
-2.3.2 JDK配置
-2.4 SSH设置
-2.4.1 免密登录
-2.4.2 虚拟机配置
-2.5 关闭防火墙
-3 虚拟机复制
-3.1 复制
-3.2 修改配置
-3.2 修改hosts
-4 设置虚拟机之前免密登录
-4.1 生成公钥
-4.2 分发公钥
-1 CentOS安装
-1.1 首先下载所有需要的安装包
+# CentOS安装
+## 首先下载所有需要的安装包
 首先需要在mac安装virtualbox和扩展包，下载地址：https://www.virtualbox.org/wiki/Downloads
 
 
@@ -50,13 +19,13 @@ tags:       [MAC, 虚拟机, CentOS, VirtualBox, Hadoop, 大数据 ]
 
 JDK for linux下载：http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz
 
-1.2 CentOS安装
+## CentOS安装
 安装教程参考：https://www.jianshu.com/p/eb0f3a3aed6d
 
 
-2 CentOS配置
-2.1 网络配置
-2.1.1 配置成静态IP模式
+# CentOS配置
+## 网络配置
+### 配置成静态IP模式
 需要修改网卡的配置
 
 vi /etc/sysconfig/network-scripts/ifcfg-enp-0s3
@@ -71,15 +40,15 @@ ONBOOT=yes
 IPADDR=172.22.80.xxx    //设置成自己本机的ip 
 NETMASK=255.255.248.0 
 GATEWAY=172.22.80.1
-2.1.2 DNS配置
+### DNS配置
 DNS 官方建议在 /etc/sysconfig/network 中配置，比较简单直接给出配置
 
 [root@node1 ~]# cat /etc/sysconfig/network
 
-# Created by anaconda 
+#Created by anaconda 
 DNS1=10.128.16.28 
 DNS2=8.8.8.8 
-2.1.3 修改网络连接方式
+### 修改网络连接方式
 将虚拟机网络改为桥接模式，具体如下图
 
 
@@ -88,34 +57,34 @@ DNS2=8.8.8.8
 
 测试网络 ping www.baidu.com，若网络不通检查上述网络配置
 
-2.1.4 安装工具包
+### 安装工具包
 更新yum：yum update
 
 安装网络工具包：yum install net-tools
 
 
-2.1.5 host设置
-2.1.5.1 虚拟机设置host
+### host设置
+#### 虚拟机设置host
 设置主机名称： vi /etc/hostname     把里面的内容改为 node1 
 
-2.1.5.2 设置虚拟机主机名和IP映射
+#### 设置虚拟机主机名和IP映射
 在虚拟机用  ifconfig 查看IP如（我的ip是这个）：172.22.80.172
 
 vi /etc/hosts  添加  172.22.80.172 node1
 
-2.1.5.3 本机设置host
+#### 本机设置host
 sudo vi /etc/hosts   添加 172.22.80.172 node1
 
 在本机ping node1测试，若ping不通，请检查host配置和网络配置
 
-2.2 共享文件设置
+## 共享文件设置
 在虚拟机执行：yum install gcc gcc-c++ make kernel-headers kernel-devel bzip2 wget
 
 关闭虚拟机后，将下载的GuestAdditions挂载到存储上，虚拟机开机
 
 
 
-2.2.1 挂载
+### 挂载
 新增目录  
 
 mkdir /mnt/share
@@ -127,7 +96,7 @@ mount -t auto /dev/cdrom  /mnt/share
 重新回到 /mnt/share  看不是挂载成功，若挂载成功，执行脚本
 
 sh ./VBoxLinuxAdditions.run
-2.2.2 设置共享
+### 设置共享
 
 
 
@@ -140,12 +109,12 @@ vi /etc/bashrc
 mount -t vboxsf share /mnt/share
 reboot  重启 查看挂载是否成功
 
-2.3 JDK安装
-2.3.1 JDK下载
+## JDK安装
+### JDK下载
 把下载JDK安装包放到共享文件下，然后复制到 /usr/local/src解压
 
 tar -zxvf jdk-8u161-linux-x64.tar.gz
-2.3.2 JDK配置
+### JDK配置
 新建文件java.sh  放到共享文件夹下，配置内容
 
 export JAVA_HOME=/usr/local/src/jdk1.8.0_161 
@@ -157,8 +126,8 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 java -version查看jdk  是否安装完毕
 
-2.4 SSH设置
-2.4.1 免密登录
+## SSH设置
+### 免密登录
 vim /etc/ssh/sshd_config 添加 PermitRootLogin yes
 
 service sshd restart
@@ -173,7 +142,7 @@ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
 然后将公钥复制到共享文件夹：
 
 cp /Users/yaokuan/.ssh/id_rsa.pub /Users/yaokuan/Documents/share
-2.4.2 虚拟机配置
+### 虚拟机配置
 登陆node1，查看是否已经存在~/.ssh/authorized_keys
 
 若没有.ssh文件夹则新增 mkdir .ssh
@@ -187,12 +156,12 @@ cat /mnt/share/id_rsa.pub >> ~/.ssh/authorized_keys
 
 免密码登录成功，到此，node1即安装成功
 
-2.5 关闭防火墙
+## 关闭防火墙
 systemctl stop firewalld.service 
 systemctl disable firewalld.service 
 systemctl status firewalld.service
-3 虚拟机复制
-3.1 复制
+# 虚拟机复制
+## 复制
 我们以node1为模板复制node2，在virtualbox中选择node1右键 -> 复制
 
 
@@ -205,7 +174,7 @@ systemctl status firewalld.service
 
 
 
-3.2 修改配置
+## 修改配置
 复制完成后登陆（和node1的root账号密码一致），然后修改hostname
 
 通过桥接模式上网的虚拟机在复制之后，出现三台机器的ip地址都是一样的，还都可以上网，因为之前复制虚拟机有勾选重新初始化mac地址，
@@ -217,17 +186,17 @@ IPADDR=172.22.80.173
 
 即可使用不同的ip，然后依次复制node3和node4
 
-3.2 修改hosts
+## 修改hosts
 当四台虚拟机都配置完成后，我们修改/etc/hosts文件，加入node1~4的IP（使用你的虚拟机IP）映射，使节点互通
 
 172.22.80.172 node1
 172.22.80.173 node2
 172.22.80.174 node3
 172.22.80.175 node4
-4 设置虚拟机之前免密登录
+# 设置虚拟机之前免密登录
 因为后续虚拟机各节点中需要通过ssh互相登录，每次都输入密码是不太现实的，所以需要实现4台虚拟机之前的免密登录，下面以node1为例
 
-4.1 生成公钥
+## 生成公钥
 首先在node1上生成公钥：ssh-keygen -t rsa
 
 
@@ -236,7 +205,7 @@ IPADDR=172.22.80.173
 
 id_rsa.pub为私钥，id_rsa为公钥
 
-4.2 分发公钥
+## 分发公钥
 然后将node1生成的公钥分发到node2~4，下面以node2为例：ssh-copy-id node2
 
 
@@ -246,3 +215,5 @@ id_rsa.pub为私钥，id_rsa为公钥
 
 
 然后同样地在node2~4上重复4.1和4.2的步骤
+
+大功告成！
