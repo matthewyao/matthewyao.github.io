@@ -4,7 +4,7 @@ title:      装饰者模式
 discription: 本文通过一个具体的例子来解释什么是装饰者模式。
 date:       2018-05-01 18:42:00
 catalog:    true
-tags:       [JAVA, 设计模式,  ]
+tags:       [Java, 设计模式,  ]
 ---
 
 ### 装饰者模式定义
