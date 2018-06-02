@@ -28,7 +28,7 @@ tags:       [Java, 设计模式,  ]
 
 #### 代码
 超类Salad，拥有两个抽象方法getName和getPrice
-```
+```java
 public abstract class Salad {
 
     private int scale;//1-小份，2-中份（加3元），3-大份（加5元）
@@ -57,7 +57,7 @@ public abstract class Salad {
 
 下面看一下三个具体的沙拉子类
 
-```
+```java
 public class CaesarSalad extends Salad{
 
     @Override
@@ -98,7 +98,7 @@ public class FruitSalad extends Salad {
 }
 ```
 然后是装饰者抽象父类SaladDecorator，这里并没有增加其他的抽象方法，只是为了让结构更加完整，实际中可以为装饰者增加额外的方法
-```
+```java
 public abstract class SaladDecorator extends Salad {
 
 }
@@ -106,7 +106,7 @@ public abstract class SaladDecorator extends Salad {
 
 然后是四种具体的装饰者类
 
-```
+```java
 public class EggDecorator extends SaladDecorator {
 
     private Salad salad;
@@ -212,7 +212,7 @@ public class ScaleDecorator extends SaladDecorator {
 #### 结果
 测试代码
 
-```
+```java
 public class Test {
 
     public static void main(String[] args) {
